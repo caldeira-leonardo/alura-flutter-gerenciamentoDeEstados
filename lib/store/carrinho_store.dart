@@ -15,6 +15,13 @@ abstract class _CarrinhoStore with Store {
   @computed
   int get quantidadeItems => listaItem.length;
 
+  @computed
+  bool get listaVazia => listaItem.isEmpty;
+
+  @computed
+  double get totalDaCompra =>
+      listaItem.map((item) => item.preco).reduce((a, b) => a + b);
+
   @action
   void adicionarAoCarrinho(Item item) {
     listaItem.add(item);

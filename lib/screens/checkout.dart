@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../components/order_item.dart';
 import '../components/payment_method.dart';
 import '../components/payment_total.dart';
+import '../store/carrinho_store.dart';
 
 class Checkout extends StatelessWidget {
   const Checkout({Key? key, required this.homeContext}) : super(key: key);
@@ -8,6 +11,8 @@ class Checkout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final CarrinhoStore carrinhoStore =
+        Provider.of<CarrinhoStore>(homeContext, listen: false);
     return SafeArea(
       child: Scaffold(
         body: Padding(
@@ -24,8 +29,9 @@ class Checkout extends StatelessWidget {
                 ),
               ),
               SliverList(
-                  delegate: SliverChildBuilderDelegate((context, index) {},
-                      childCount: 1)),
+                  delegate: SliverChildBuilderDelegate((context, index) {
+                return OrderItem(item: carrinhoStore.listaItem[index]);
+              }, childCount: carrinhoStore.quantidadeItems)),
               const SliverToBoxAdapter(
                 child: Padding(
                   padding: EdgeInsets.only(bottom: 8.0),
@@ -48,7 +54,7 @@ class Checkout extends StatelessWidget {
                 ),
               ),
               SliverToBoxAdapter(
-                child: PaymentTotal(total: 00.00),
+                child: PaymentTotal(total: carrinhoStore.totalDaCompra),
               ),
               SliverFillRemaining(
                 hasScrollBody: false,

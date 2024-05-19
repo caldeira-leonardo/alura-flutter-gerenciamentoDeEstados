@@ -16,6 +16,20 @@ mixin _$CarrinhoStore on _CarrinhoStore, Store {
       (_$quantidadeItemsComputed ??= Computed<int>(() => super.quantidadeItems,
               name: '_CarrinhoStore.quantidadeItems'))
           .value;
+  Computed<bool>? _$listaVaziaComputed;
+
+  @override
+  bool get listaVazia =>
+      (_$listaVaziaComputed ??= Computed<bool>(() => super.listaVazia,
+              name: '_CarrinhoStore.listaVazia'))
+          .value;
+  Computed<double>? _$totalDaCompraComputed;
+
+  @override
+  double get totalDaCompra =>
+      (_$totalDaCompraComputed ??= Computed<double>(() => super.totalDaCompra,
+              name: '_CarrinhoStore.totalDaCompra'))
+          .value;
 
   late final _$listaItemAtom =
       Atom(name: '_CarrinhoStore.listaItem', context: context);
@@ -62,7 +76,9 @@ mixin _$CarrinhoStore on _CarrinhoStore, Store {
   String toString() {
     return '''
 listaItem: ${listaItem},
-quantidadeItems: ${quantidadeItems}
+quantidadeItems: ${quantidadeItems},
+listaVazia: ${listaVazia},
+totalDaCompra: ${totalDaCompra}
     ''';
   }
 }
